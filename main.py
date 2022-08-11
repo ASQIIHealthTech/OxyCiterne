@@ -2,8 +2,9 @@ import cv2 as cv
 import numpy as np
 from preprocessing import preprocessing
 from model import Model
-
-
+from data import data
+from datetime import datetime
+from time import strftime
 
 
 
@@ -12,6 +13,8 @@ from model import Model
 def main():
 
     model = Model()
+
+    conn = data.connectBd()
 
     capt = cv.VideoCapture('assets', 'NumberCounterAnimation.mp4')   
 
@@ -28,7 +31,12 @@ def main():
                 predicted_number = (tens * 10) + units 
 
                 # TODO: send the predicted number to the database
-
+                timess = datetime.now().time()
+                time = timess.strftime("%H:%M:%S")
+                data.StreamCiterne(conn, "C1",float(predicted_number),
+                                    0.0, 
+                                    datetime.now().date(), 
+                                    time)
                 
 
             else:
