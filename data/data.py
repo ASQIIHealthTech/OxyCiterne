@@ -1,6 +1,9 @@
 import mysql.connector as msql
 from mysql.connector import Error
 
+
+
+
 def connectBd():
     """Connect to the database
 
