@@ -1,18 +1,14 @@
 import cv2 as cv
-import numpy as np
 from preprocessing import preprocessing
-from model import Model
 from data import data
 from datetime import datetime
 from time import strftime
-import pytesseract
-import os
+from pytesseract import image_to_string
 
 
 
 def main():
 
-    model = Model()
 
     
 
@@ -25,16 +21,21 @@ def main():
         ret,frame = capt.read()
         if ret:
 
-            units, tens = preprocessing.crop_image(frame)
-            units = np.argmax(model.predict(preprocessing.reshape_image(units, (1, 150, 300, 3))))
+            ## preduict the number
 
-            tens = np.argmax(model.predict(preprocessing.reshape_image(tens, (1, 150, 300, 3))))
-            predicted_number = (tens * 10) + units 
+            # cropping the image and preprocessed it
+            pourcentage_iamge = preprocessing.crop_image(frame)
+            preprocessed_image = preprocessing.tess_processing(pourcentage_iamge)
 
-            # TODO: send the predicted number to the database
+
+
+            tess_dir_config = r'--tessdata-dir "C:\Program Files\Tesseract-OCR\tessdata" --psm 7'
+            text = image_to_string(preprocessed_image, lang='letsgodigital', config=tess_dir_config)
+
+            # send the predicted number to the database
             timess = datetime.now().time()
             time = timess.strftime("%H:%M:%S")
-            data.StreamCiterne(conn, "C1",float(predicted_number),
+            data.StreamCiterne(conn, "C1",float(text),
                                 0.0, 
                                 datetime.now().date(), 
                                 time)

@@ -13,17 +13,14 @@ def crop_image(path: str) -> Any:
         
     """
 
-    cropped_images = []
     image = cv.imread(path)
 
     # TODO: to be changed
-    units_crop = image[50:200, 380:450]
-    tens_crop = image[50:200, 450:550]
+    image_crop = image[90:200, 300:520]
 
-    cropped_images.append(units_crop)
-    cropped_images.append(tens_crop)
+    
 
-    return cropped_images
+    return image_crop
 
 def reshape_image(image, shape: Tuple[int,int,int,int]):
 
@@ -97,7 +94,20 @@ def contouring(image_mat):
     return contours
 
 
+def tess_processing(image_mat):
+    
+    """Preprocessing the image for better result
 
+    @param image_mat Image to be processed
+    @return Processed image
+    """
+
+
+    processed_image = cv.cvtColor(image_mat, cv.COLOR_BGR2GRAY)
+    processed_image = cv.GaussianBlur(processed_image, (3,3), 0)
+    processed_image = cv.threshold(processed_image, 0, 255, cv.THRESH_BINARY_INV + cv.THRESH_OTSU)[1]
+
+    return processed_image
 
 
 
