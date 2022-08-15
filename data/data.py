@@ -1,6 +1,13 @@
 import mysql.connector as msql
 from mysql.connector import Error
+import json
 
+
+with open('pass.json') as f:
+    DATA = json.load(f)
+    HOST = DATA["host"]
+    USER = DATA["user"]
+    PASSWORD = DATA["password"]
 
 
 
@@ -10,8 +17,9 @@ def connect_bd():
     @return Connector to the database 
     """
     try:
-        conn = msql.connect(host='localhost', user='root',  
-                        password='mariem98$') #give ur username, password
+        conn = msql.connect(host=HOST, 
+                            user=USER,  
+                                password=PASSWORD) #give ur username, password
         if conn.is_connected():
             cursor = conn.cursor()
             #cursor.execute("CREATE DATABASE oxyCiterne")
