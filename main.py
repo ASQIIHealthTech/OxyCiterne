@@ -12,7 +12,7 @@ def main():
 
     
 
-    conn = data.connectBd()
+    conn = data.connect_bd()
 
     capt = cv.VideoCapture(1)   
 
@@ -35,7 +35,7 @@ def main():
             # send the predicted number to the database
             timess = datetime.now().time()
             time = timess.strftime("%H:%M:%S")
-            data.StreamCiterne(conn, "C1",float(text),
+            data.stream_citerne(conn, "C1",float(text),
                                 0.0, 
                                 datetime.now().date(), 
                                 time)

@@ -81,6 +81,7 @@ def threshold_image(image_mat):
     _, thresholded = cv.threshold(image_mat, 127, 255, cv.THRESH_BINARY)
     return thresholded
 
+
 def contouring(image_mat):
 
     """Detecting contours in the image

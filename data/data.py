@@ -4,7 +4,7 @@ from mysql.connector import Error
 
 
 
-def connectBd():
+def connect_bd():
     """Connect to the database
 
     @return Connector to the database 
@@ -22,7 +22,7 @@ def connectBd():
 
 
 
-def StreamCiterne(conn,nomC,pourcentage,pression,dateC,temps) -> None:
+def stream_citerne(conn,nomC,pourcentage,pression,dateC,temps) -> None:
 
     """Streaming the data and store it to the database
 
