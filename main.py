@@ -10,8 +10,6 @@ from pytesseract import image_to_string
 def main():
 
 
-    
-
     conn = data.connect_bd()
 
     capt = cv.VideoCapture(1)   
@@ -24,8 +22,8 @@ def main():
             ## preduict the number
 
             # cropping the image and preprocessed it
-            pourcentage_iamge = preprocessing.crop_image(frame)
-            preprocessed_image = preprocessing.tess_processing(pourcentage_iamge)
+            pourcentage_image = preprocessing.crop_image(frame)
+            preprocessed_image = preprocessing.tess_processing(pourcentage_image)
 
 
 
